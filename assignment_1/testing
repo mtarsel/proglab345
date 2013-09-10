@@ -1,0 +1,18 @@
+> (triangular 0)
+0
+> (triangular 1)
+1
+> (triangular 2)
+3
+> (square-triangular 0)
+0
+> (square-triangular 1)
+1
+> (square-triangular 3)
+14
+> (generalized-triangular 0 square)
+0
+> (generalized-triangular 1 square)
+1
+> (generalized-triangular 3 square)
+14

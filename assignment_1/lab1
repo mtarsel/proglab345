@@ -1,0 +1,32 @@
+#lang racket
+(define triangular
+  (lambda (n)
+    (if (= n 0)
+        0
+        (+ n (triangular(- n 1))))))
+
+(define square
+  (lambda (n)
+    (* n n)))
+
+(define square-triangular
+  (lambda (n)
+    (if (= n 0)
+        0
+         (+ (square n) ( square-triangular(- n 1))))))
+
+(define generalized-triangular
+  (lambda ( n f )
+    (if (= n 0)
+        0 
+        (+ (f n) ( generalized-triangular(- n 1) f)))))
+
+(define generic-triangular
+  (lambda ( f )
+      (lambda ( n )
+        (let helper (
+                     ( local_f f ) 
+                     ( local_n n ) ) 
+        (if (> local_n 0)
+            (+ (local_f local_n) ( helper local_f (- local_n 1)))0)))))
+

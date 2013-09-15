@@ -1,0 +1,23 @@
+#lang racket
+
+; length: returns the length of the list
+;
+(define length
+  (lambda (ls)
+          [FILL IN BLANKS]
+
+
+
+; append: concatenates two lists together
+;
+(define append
+  (lambda (ls1 ls2)
+          [FILL IN BLANKS]
+
+
+
+; reverse: reverses the contents of a list
+;
+(define reverse 
+  (lambda (ls)
+      [FILL IN BLANKS] ))

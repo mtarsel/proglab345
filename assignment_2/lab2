@@ -11,4 +11,10 @@
 
 (define length
   (lambda (ls)
-    (accumulate + 0 (lambda(x) 1 ) ls)))
+    (if (null? ls)
+        0
+        (length (cdr ls)))))
+
+(define append
+  (lambda (ls1 ls2)
+    (accumulate cons ls2  (lambda(x) x) ls1)))

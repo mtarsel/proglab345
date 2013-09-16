@@ -13,16 +13,25 @@
   (lambda (ls)
     (if (null? ls)
         0
-        (length (cdr ls)))))
+         (accumulate + 0 (lambda(x) 1 ) ls))))
 
 (define append
   (lambda (ls1 ls2)
     (accumulate cons ls2  (lambda(x) x) ls1)))
 
 
-
-    
-
+;(define reverse
+ ; (lambda (ls)
+   
+;(define prefix
+ ; (lambda ls1)
+  
+;(define subsequence
+ ; (lambda ls1)
+  
+;(define sublist
+ ; (lambda ls1)
+  
 (define map
   (lambda (f ls)
     (if (null? ls)
@@ -36,6 +45,13 @@
         ((test? (car ls)) (cons (car ls) (filter test? (cdr ls))))
         (else (filter test? (cdr ls))))))
     
+
+(define my-insert
+  (lambda (item sorted_ls)
+    (cond ((null? sorted_ls) (list item))
+          ((> item (car sorted_ls)) (cons (car sorted_ls) (my-insert item (cdr sorted_ls))))
+           (else (cons item sorted_ls)))))
+
     
 (define num-sort
   (lambda (ls)
@@ -43,9 +59,11 @@
         '()
         (num-sort (car ls)
                 (num-sort (cdr ls))))))
-    
-(define my-insert
-  (lambda (item sorted_ls)
-    (cond ((null? sorted_ls) (list item))
-          ((> item (car sorted_ls)) (cons (car sorted_ls) (my-insert item (cdr sorted_ls))))
-           (else (cons item sorted_ls)))))
+;(define sort
+;  (lambda (ls less?)
+;          [FILL IN BLANKS]
+
+;(define make-sort
+;  (lambda (less?)
+;          [FILL IN BLANKS]
+   

@@ -1,58 +1,14 @@
 #lang racket
 
 ; length: returns the length of the list
+
+(define accumulate
+  (lambda (op base term ls)
+    (if (null? ls)
+        base
+        (op (term (car ls)) 
+            (accumulate op base term (cdr ls))))))
+
 (define length
   (lambda (ls)
-          [FILL IN BLANKS]
-
-
-; append: concatenates two lists together
-(define append
-  (lambda (ls1 ls2)
-          [FILL IN BLANKS]
-
-
-; reverse: reverses the contents of a list
-(define reverse 
-  (lambda (ls)
-      [FILL IN BLANKS] ))
-    
-    
-(define prefix
-  (lambda (ls1 ls2)
-          [FILL IN BLANKS]
-  
-    
-(define subsequence
-  (lambda (ls1 ls2)
-          [FILL IN BLANKS] 
-  
-    
-(define sublist
-  (lambda (ls1 ls2)
-          [FILL IN BLANKS] 
-    
-    
-(define map
-  (lambda (f ls)
-          [FILL IN BLANKS]
-   
-    
-(define filter
-  (lambda (test ls)
-          [FILL IN BLANKS]
- 
-    
-(define num-sort
-  (lambda (ls)
-          [FILL IN BLANKS]
-    
-    
-(define sort
-  (lambda (ls less?)
-          [FILL IN BLANKS]
-
-    
-(define make-sort
-  (lambda (less?)
-          [FILL IN BLANKS]
+    (accumulate + 0 (lambda(x) 1 ) ls)))

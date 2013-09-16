@@ -11,17 +11,19 @@
 
 (define length
   (lambda (ls)
-    (if (null? ls)
-        0
-         (accumulate + 0 (lambda(x) 1 ) ls))))
+         (accumulate + 0 (lambda(x) 1 ) ls)))
 
 (define append
   (lambda (ls1 ls2)
     (accumulate cons ls2  (lambda(x) x) ls1)))
 
 
-;(define reverse
- ; (lambda (ls)
+(define (reverse 
+         lambda ls)
+         (if (null? ls) 
+             0
+              (append (reverse (cdr ls)) (list (car ls)))))        
+        
    
 ;(define prefix
  ; (lambda ls1)

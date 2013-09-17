@@ -75,11 +75,29 @@
         '()
         (my-insert (car ls)
                 (num-sort (cdr ls))))))
+
+
 (define sort
   (lambda (ls less?)
+    (if (null? ls)
+        '()
+        (insert2 (car ls)
+                 (sort (cdr ls) less?)
+                 less?))))
+
+(define insert2
+  (lambda (item sorted-ls less?)
+          (cond ((null? sorted-ls) (list item))
+                ((less? item (car sorted-ls))(cons item sorted-ls))
+                (else (cons (car sorted-ls) (insert2 item (cdr sorted-ls) less?))))))
+    
 
 
-;(define make-sort
-;  (lambda (less?)
-;          [FILL IN BLANKS]
+(define make-sort
+  (lambda (less?)
+    (lambda (ls) 
+      (if (null? ls) '()
+          (insert2 (car ls)
+                   (sort (cdr ls) less?) less?)))))
+
    

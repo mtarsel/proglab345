@@ -1,0 +1,32 @@
+> (length '())
+0
+> (length '(a b c))
+3
+> (append '() '())
+'()
+> (append '(a) '(b))
+'(a b)
+> (append '(a x) '(b y))
+'(a x b y)
+> (reverse '())
+'()
+> (reverse '(a b c))
+'(c b a)
+> (prefix? '() '(a b c))
+#t
+> (prefix? '(a b c) '(a b c d e))
+#t
+> (prefix? '(a b c) '(a x b c d e))
+#f
+> (subsequence? '() '(a b c))
+#t
+> (subsequence? '(a b c) '(x a b c y z)) 
+#t
+> (subsequence? '(a b c) '(x a b y c z))
+#f
+> (sublist? '(a b c) '(x a b y c z))
+#t
+> (filter odd? '(1 2 3 4 5))
+'(1 3 5)
+> (num-sort '(2 4 3 5 1))
+'(1 2 3 4 5)

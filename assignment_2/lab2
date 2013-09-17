@@ -17,22 +17,36 @@
   (lambda (ls1 ls2)
     (accumulate cons ls2  (lambda(x) x) ls1)))
 
-
-(define (reverse 
-         lambda ls)
+(define reverse 
+         (lambda (ls)
          (if (null? ls) 
-             0
-              (append (reverse (cdr ls)) (list (car ls)))))        
+             '()
+              (append (reverse (cdr ls)) 
+                      (cons (car ls) '() )))))       
         
    
-;(define prefix
- ; (lambda ls1)
-  
-;(define subsequence
- ; (lambda ls1)
-  
-;(define sublist
- ; (lambda ls1)
+(define prefix?
+  (lambda (ls1 ls2)
+  (cond ((null? ls1) #t)
+        ((null? ls2) #f)
+        ((equal? (car ls1)(car ls2))(prefix? (cdr ls1)(cdr ls2)))
+                                     (else #f))))
+
+(define subsequence?
+  (lambda (ls1 ls2)
+  (cond ((null? ls1) #t)
+        ((null? ls2) #f)
+        ((prefix? ls1 ls2) #t)
+        ((subsequence? ls1 (cdr ls2)))
+                                     (else #f))))
+
+
+(define sublist?
+  (lambda (ls1 ls2)
+  (cond ((null? ls1) #t)
+        ((null? ls2) #f)
+        ((subsequence? (cons (car ls1) '()) ls2) (sublist?(cdr ls1) ls2))
+        (else #f))))
   
 (define map
   (lambda (f ls)
@@ -59,11 +73,11 @@
   (lambda (ls)
     (if (null? ls)
         '()
-        (num-sort (car ls)
+        (my-insert (car ls)
                 (num-sort (cdr ls))))))
-;(define sort
-;  (lambda (ls less?)
-;          [FILL IN BLANKS]
+(define sort
+  (lambda (ls less?)
+
 
 ;(define make-sort
 ;  (lambda (less?)

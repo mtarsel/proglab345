@@ -86,10 +86,10 @@
                  less?))))
 
 (define insert2
-  (lambda (item sorted-ls less?)
-          (cond ((null? sorted-ls) (list item))
-                ((less? item (car sorted-ls))(cons item sorted-ls))
-                (else (cons (car sorted-ls) (insert2 item (cdr sorted-ls) less?))))))
+  (lambda (item sorted_ls less?)
+          (cond ((null? sorted_ls) (list item))
+                ((less? item (car sorted_ls))(cons item sorted_ls))
+                (else (cons (car sorted_ls) (insert2 item (cdr sorted_ls) less?))))))
     
 
 

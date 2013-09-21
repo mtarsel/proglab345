@@ -1,3 +1,5 @@
+#lang racket
+
 (define whos-on-first-loop 
 	  (lambda (old-context)
 	    (let ((costellos-line (read)));read input from keyboard. assigns input to costellos-line
@@ -16,25 +18,33 @@
 	                      (writeln (hedge));hedge=stall
 	                      (whos-on-first-loop new-context)))))))))
 
+	(define *strong-cues*
+	  '( ( ((the names) (their names))
+	       ((who's on first whats on second i dont know on third)
+ 	        (whats on second whos on first i dont know on third)) )
+
+	     ( ((suppose) (lets say) (assume))
+	       ((okay) (why not) (sure) (it could happen)) )
+
+	     ( ((i dont know))
+	       ((third base) (hes on third)) )
+	   ))
 
 
-(define *strong-cues*;defines a list
-  '( ( ((the names) (their names));item in a sublist
-       ((whos on first whats on second i dont know on third)
-        (whats on second whos on first i dont know on third)) );item in a sublist
-
-     ( ((suppose) (lets say) (assume))
-       ((okay) (why not) (sure) (it could happen)) )
-
-     ( ((i dont know))
-       ((third base) (hes on third)) )
-   ))
 
 (define try-strong-cues
   (lambda (sentence)
     '()))
 
+(define try-weak-cues
+  (lambda (sentence)
+    '()))
+
 (define wants-to-end?
+  (lambda (sentence)
+    (equal? sentence '(i quit))))
+
+(define wrap-it-up
   (lambda (sentence)
     (equal? sentence '(i quit))))
 
@@ -46,6 +56,10 @@
     (im trying to tell you)
     (but you asked)))
 
+(define select-any-from-list
+  (lambda (ls)
+    (list-ref ls (random (length ls)))))
+
 (define hedge
   (lambda ()
     (select-any-from-list *hedges*)))
@@ -54,3 +68,6 @@
   (lambda (sentence old-context)
     '()))
 	
+(define writeln
+  (lambda (sentence)
+    (write sentence)))

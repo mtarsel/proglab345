@@ -64,6 +64,11 @@
   (lambda ()
     (select-any-from-list *hedges*)))
 
+	(define *context-words*
+	  `( ( ((first)) first-base )
+	     ( ((second)) second-base )
+	     ( ((third)) third-base )))
+
 (define get-context
   (lambda (sentence old-context)
     '()))

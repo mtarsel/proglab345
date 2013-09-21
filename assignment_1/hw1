@@ -37,4 +37,8 @@
 (define wants-to-end?
   (lambda (sentence)
     (equal? sentence '(i quit))))
+
+(define hedge
+  (lambda ()
+    (select-any-from-list *hedges*)))
 	

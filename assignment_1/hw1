@@ -38,7 +38,19 @@
   (lambda (sentence)
     (equal? sentence '(i quit))))
 
+(define *hedges*
+  '((its like im telling you)
+    (now calm down)
+    (take it easy)
+    (its elementary lou)
+    (im trying to tell you)
+    (but you asked)))
+
 (define hedge
   (lambda ()
     (select-any-from-list *hedges*)))
+
+(define get-context
+  (lambda (sentence old-context)
+    '()))
 	

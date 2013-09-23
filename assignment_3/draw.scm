@@ -40,29 +40,25 @@
   (lambda (window vector-points)
     (graphics-operation window 'fill-polygon vector-points)))
 
-;(define test-driver
-;  (lambda ()
-;    (draw-circle (make-window 500 500 "black" "red") 250 250 100)))
-
 (define test-driver
    (lambda (x1 y1 window);starting position
 	(cond ((equal? x1 500) 
 			(cond ((equal? y1 500) #t)
 				(else (draw-point window x1 y1)
-                                      (choosecolor (random 7))
+                                      (choosecolor (random 7) window)
 					(test-driver (direction x1 (random 3)) (direction y1 (random 3)) window)))) 
 		(else (draw-point window x1 y1)
 			(test-driver (direction x1 (random 3)) (direction y1 (random 3)) window)))))
 (define direction
    (lambda (p num)
-	(cond ;((equal? p 500) (- p 1))
-              ;((equal? p 0) (+ p 1))
+	(cond ((equal? p 500) (- p 1))
+              ((equal? p 0) (+ p 1))
               ((equal? 0 num) p)
               ((equal? 1 num) (+ 1 p))
               ((equal? 2 num) (- 1 p)))))
 
 (define choosecolor
-  (lambda num
+  (lambda (num window)
     (cond ((= num 0) (set-foreground-color window "white"))
           ((= num 1) (set-foreground-color window "blue"))
           ((= num 2) (set-foreground-color window "red"))

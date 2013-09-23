@@ -68,4 +68,8 @@
           ((= num 6) (set-foreground-color window "yellow"))
           )))
 
+(define runit
+  (lambda ()
+    (test-driver 250 250 (make-window 500 500 "green" "black"))))
+
 ;;(test-driver 250 250 (make-window 500 500 "green" "black"))

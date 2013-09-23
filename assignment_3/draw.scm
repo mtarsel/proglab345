@@ -55,22 +55,21 @@
 			(test-driver (direction x1 (random 3)) (direction y1 (random 3)) window)))))
 (define direction
    (lambda (p num)
-	(cond ((equal? p 500) (- p 1))
-              ((equal? p 0) (+ p 1))
+	(cond ;((equal? p 500) (- p 1))
+              ;((equal? p 0) (+ p 1))
               ((equal? 0 num) p)
               ((equal? 1 num) (+ 1 p))
               ((equal? 2 num) (- 1 p)))))
 
 (define choosecolor
   (lambda num
-    (num (car num))
-    (cond ((= num 0) ("white"))
-          ((= num 1) ("blue"))
-          ((= num 2) ("red"))
-          ((= num 3) ("purple"))
-          ((= num 4) ("green"))
-          ((= num 5) ("orange"))
-          ((= num 6) ("yellow"))
+    (cond ((= num 0) (set-foreground-color window "white"))
+          ((= num 1) (set-foreground-color window "blue"))
+          ((= num 2) (set-foreground-color window "red"))
+          ((= num 3) (set-foreground-color window "purple"))
+          ((= num 4) (set-foreground-color window "green"))
+          ((= num 5) (set-foreground-color window "orange"))
+          ((= num 6) (set-foreground-color window "yellow"))
           )))
 
 ;;(test-driver 250 250 (make-window 500 500 "green" "black"))

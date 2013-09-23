@@ -43,7 +43,7 @@
 (define test-driver
    (lambda (x1 y1 window);starting position
 	(cond ((equal? x1 500) 
-			(cond ((equal? y1 500) #t)
+			(cond ((equal? y1 500) (kill-window window) "Done!")
 				(else (draw-point window x1 y1)
                                       (choosecolor (random 7) window)
 					(test-driver (direction x1 (random 3)) (direction y1 (random 3)) window)))) 

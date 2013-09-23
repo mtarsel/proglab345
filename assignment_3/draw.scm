@@ -49,6 +49,7 @@
 	(cond ((equal? x1 500) 
 			(cond ((equal? y1 500) #t)
 				(else (draw-point window x1 y1)
+                                      (choosecolor (random 7))
 					(test-driver (direction x1 (random 3)) (direction y1 (random 3)) window)))) 
 		(else (draw-point window x1 y1)
 			(test-driver (direction x1 (random 3)) (direction y1 (random 3)) window)))))
@@ -59,5 +60,17 @@
               ((equal? 0 num) p)
               ((equal? 1 num) (+ 1 p))
               ((equal? 2 num) (- 1 p)))))
+
+(define choosecolor
+  (lambda num
+    (num (car num))
+    (cond ((= num 0) ("white"))
+          ((= num 1) ("blue"))
+          ((= num 2) ("red"))
+          ((= num 3) ("purple"))
+          ((= num 4) ("green"))
+          ((= num 5) ("orange"))
+          ((= num 6) ("yellow"))
+          )))
 
 ;;(test-driver 250 250 (make-window 500 500 "green" "black"))

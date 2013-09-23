@@ -1,9 +1,6 @@
-
 (define make-window
   (lambda (x-size y-size foreground-color background-color)
-  ;; choose one of the following lines: UNIX or Windows
     (let ((window (make-graphics-device 'x)))				; this is for UNIX 
-    ;(let ((window (make-graphics-device 'win32 x-size y-size))) 	; this is for Windows
 	(begin
 	  (graphics-set-coordinate-limits window 0 0 x-size y-size)
 	  (set-foreground-color window foreground-color)
@@ -43,3 +40,24 @@
   (lambda (window vector-points)
     (graphics-operation window 'fill-polygon vector-points)))
 
+;(define test-driver
+;  (lambda ()
+;    (draw-circle (make-window 500 500 "black" "red") 250 250 100)))
+
+(define test-driver
+   (lambda (x1 y1 window);starting position
+	(cond ((equal? x1 500) 
+			(cond ((equal? y1 500) #t)
+				(else (draw-point window x1 y1)
+					(test-driver (direction x1 (random 3)) (direction y1 (random 3)) window)))) 
+		(else (draw-point window x1 y1)
+			(test-driver (direction x1 (random 3)) (direction y1 (random 3)) window)))))
+(define direction
+   (lambda (p num)
+	(cond ((equal? p 500) (- p 1))
+              ((equal? p 0) (+ p 1))
+              ((equal? 0 num) p)
+              ((equal? 1 num) (+ 1 p))
+              ((equal? 2 num) (- 1 p)))))
+
+;;(test-driver 250 250 (make-window 500 500 "green" "black"))

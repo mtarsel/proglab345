@@ -41,14 +41,14 @@
     (graphics-operation window 'fill-polygon vector-points)))
 
 (define test-driver
-   (lambda (x1 y1 window);starting position
-	(cond ((equal? x1 500) 
-			(cond ((equal? y1 500) (kill-window window) "Done!")
+   (lambda (x1 y1 window home-x home-y);starting position
+	(cond ((equal? x1 home-x) 
+			(cond ((equal? y1 home-y) (kill-window window) "Done!")
 				(else (draw-point window x1 y1)
                                       (choosecolor (random 7) window)
-					(test-driver (direction x1 (random 3)) (direction y1 (random 3)) window)))) 
+					(test-driver (direction x1 (random 3)) (direction y1 (random 3)) window home-x home-y)))) 
 		(else (draw-point window x1 y1)
-			(test-driver (direction x1 (random 3)) (direction y1 (random 3)) window)))))
+			(test-driver (direction x1 (random 3)) (direction y1 (random 3)) window home-x home-y)))))
 (define direction
    (lambda (p num)
 	(cond ((equal? p 500) (- p 1))
@@ -69,7 +69,7 @@
           )))
 
 (define runit
-  (lambda ()
-    (test-driver 250 250 (make-window 500 500 "green" "black"))))
+  (lambda (start-x start-y home-x home-y)
+    (test-driver start-x start-y (make-window 500 500 "green" "black") home-x home-y)))
 
-;;(test-driver 250 250 (make-window 500 500 "green" "black"))
+;(runit 250 250 500 500)

@@ -70,6 +70,8 @@
 
 (define runit
   (lambda (start-x start-y home-x home-y)
+    (if (> home-x 500) ("Home is not on grid" (exit)))
+    (if(> home-y 500) ("Home is not on grid" (exit)))
     (test-driver start-x start-y (make-window 500 500 "green" "black") home-x home-y)))
 
 ;(runit 250 250 500 500)

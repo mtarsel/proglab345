@@ -18,17 +18,17 @@
 	                      (writeln (hedge));hedge=stall
 	                      (whos-on-first-loop new-context)))))))))
 
-	(define *strong-cues*;prints this list 
-	  '( ( ((the names) (their names))
-	       ((who's on first whats on second i dont know on third)
- 	        (whats on second whos on first i dont know on third)) )
+(define *strong-cues*;prints this list 
+  '( ( ((the names) (their names))
+       ((who's on first whats on second i dont know on third)
+        (whats on second whos on first i dont know on third)) )
 
-	     ( ((suppose) (lets say) (assume))
-	       ((okay) (why not) (sure) (it could happen)) )
+     ( ((suppose) (lets say) (assume))
+       ((okay) (why not) (sure) (it could happen)) )
 
-	     ( ((i dont know))
-	       ((third base) (hes on third)) )
-	   ))
+     ( ((i dont know))
+       ((third base) (hes on third)) )
+   ))
         
 (define *weak-cues*
   '( ( ((who) (whos) (who is))
@@ -60,6 +60,16 @@
               (else (helper (cdr list-of-pairs))))))
     (helper *strong-cues*)))
 
+(define try-weak-cues;TODO: same thign as try-strong cues but with a different list with an extra layer of search to match the context
+  (lambda (sentence new-context)
+    (define helper
+      (lambda (list-of-pairs)
+        (cond ((null? list-of-pairs) '())
+              ((any-good-fragments? (cue-part list-of-pairs) sentence))
+              (select-any-from-list (response-part (car list-of-pairs)))
+              (else (helper (cdr list-of-pairs))))))
+    (helper *weak-cues*)))
+
 (define cue-part
   (lambda (pair)
     (car pair)))
@@ -87,10 +97,6 @@
         ((null? ls2) #f)
         ((prefix? ls1 ls2) #t)
         ( else (subsequence? ls1 (cdr ls2))))))
-        
-(define try-weak-cues;TODO
-  (lambda (sentence new-context);same thign as try-strong cues but with a different list with an extra layer of search to match the context
-    '()))
 
 (define wants-to-end?
   (lambda (sentence)

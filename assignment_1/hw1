@@ -62,7 +62,7 @@
 
 (define hedge
   (lambda ()
-    (select-any-from-list *hedges*))):;TODO: it repeats this call.
+    (select-any-from-list *hedges*)));TODO: it repeats this call.
 
 	(define *context-words*
 	  `( ( ((first)) first-base )

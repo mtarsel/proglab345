@@ -150,10 +150,10 @@
      ( ((third)) third-base )))
 
 (define get-context
-  (lambda (sentence old-context)
+  (lambda (sentence context)
     (define helper
       (lambda (list-of-pairs)
-        (cond ((null? list-of-pairs) '())
+        (cond ((null? list-of-pairs) context)
               ((any-good-fragments? (cue-part(car list-of-pairs)) sentence)
                (response-part (car list-of-pairs)))
               (else (helper(cdr list-of-pairs))))))

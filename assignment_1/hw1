@@ -18,7 +18,7 @@
 	                      (writeln (hedge));hedge=stall
 	                      (whos-on-first-loop new-context)))))))))
 
-	(define *strong-cues*
+	(define *strong-cues*;prints this list 
 	  '( ( ((the names) (their names))
 	       ((who's on first whats on second i dont know on third)
  	        (whats on second whos on first i dont know on third)) )
@@ -114,19 +114,23 @@
 
 (define hedge
   (lambda ()
-    (select-any-from-list *hedges*)));TODO: it repeats hedges for each string entered during user input
+    (select-any-from-list *hedges*)))
 
 (define *context-words*
   `( ( ((first)) first-base )
      ( ((second)) second-base )
      ( ((third)) third-base )))
 
-(define get-context;TODO
-  (lambda (sentence old-context);no hits
-    '()));calls any-good-fragments?
-;*context-words*
-;context-part (car list-of-context
-;else helper (cdr list-of-context)
+(define get-context
+  (lambda (sentence old-context)
+    (define helper
+      (lambda (list-of-pairs)
+        (cond ((null? list-of-pairs) '())
+              ((any-good-fragments? (cue-part(car list-of-pairs)) sentence)
+               (response-part (car list-of-pairs)))
+              (else (helper(cdr list-of-pairs))))))
+    (helper *context-words*)))
+        
 
 (define context-part
   (lambda (pair)

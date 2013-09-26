@@ -37,7 +37,7 @@
     '()))
 
 (define try-weak-cues
-  (lambda (sentence)
+  (lambda (sentence new-context)
     '()))
 
 (define wants-to-end?

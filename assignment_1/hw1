@@ -29,6 +29,26 @@
 	     ( ((i dont know))
 	       ((third base) (hes on third)) )
 	   ))
+        
+        (define *weak-cues*
+  '( ( ((who) (whos) (who is))
+       ((first-base)
+           ((thats right) (exactly) (you got it)
+	    (right on) (now youve got it)))
+       ((second-base third-base)
+           ((no whos on first) (whos on first) (first base))) )
+     ( ((what) (whats) (what is))
+       ((first-base third-base)
+	   ((hes on second) (i told you whats on second)))
+       ((second-base)
+	   ((right) (sure) (you got it right))) )
+     ( ((whats the name))
+       ((first-base third-base)
+	   ((no whats the name of the guy on second)
+	    (whats the name of the second baseman)))
+       ((second-base)
+	((now youre talking) (you got it))))
+   ))
 
 (define try-strong-cues
   (lambda (sentence)

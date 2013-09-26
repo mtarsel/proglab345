@@ -89,7 +89,7 @@
         ( else (subsequence? ls1 (cdr ls2))))))
         
 (define try-weak-cues;TODO
-  (lambda (sentence new-context)
+  (lambda (sentence new-context);same thign as try-strong cues but with a different list with an extra layer of search to match the context
     '()))
 
 (define wants-to-end?
@@ -116,14 +116,21 @@
   (lambda ()
     (select-any-from-list *hedges*)));TODO: it repeats hedges for each string entered during user input
 
-	(define *context-words*
-	  `( ( ((first)) first-base )
-	     ( ((second)) second-base )
-	     ( ((third)) third-base )))
+(define *context-words*
+  `( ( ((first)) first-base )
+     ( ((second)) second-base )
+     ( ((third)) third-base )))
 
 (define get-context;TODO
-  (lambda (sentence old-context)
-    '()))
+  (lambda (sentence old-context);no hits
+    '()));calls any-good-fragments?
+;*context-words*
+;context-part (car list-of-context
+;else helper (cdr list-of-context)
+
+(define context-part
+  (lambda (pair)
+    (cadr pair)))
 	
 (define writeln
   (lambda (sentence)

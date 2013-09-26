@@ -30,12 +30,44 @@
 	       ((third base) (hes on third)) )
 	   ))
 
-
-
 (define try-strong-cues
   (lambda (sentence)
-    '()))
+    (define helper
+      (lambda (list-of-pairs)
+        (cond ((null? list-of-pairs) '())
+              ((any-good-fragments? (cue-part list-of-pairs) sentence))
+              (select-any-from-list (response-part (car list-of-pairs)))
+              (else (helper (cdr list-of-pairs))))))
+    (helper *strong-cues*)))
 
+(define cue-part
+  (lambda (pair)
+    (car pair)))
+
+(define response-part
+  (lambda (pair)
+    (cadr pair)))
+
+(define any-good-fragments?
+  (lambda (list-of-cues sentence)
+    (cond ((null? list-of-cues) #f)
+          ((subsequence? (car list-of-cues) sentence) #t)
+          (else (any-good-fragments? (cdr list-of-cues) sentence)))))
+
+(define prefix?
+  (lambda (ls1 ls2)
+  (cond ((null? ls1) #t)
+        ((null? ls2) #f)
+        ((equal? (car ls1)(car ls2)) (prefix? (cdr ls1)(cdr ls2)))
+                                     (else #f))))
+
+(define subsequence?
+  (lambda (ls1 ls2)
+  (cond ((null? ls1) #t)
+        ((null? ls2) #f)
+        ((prefix? ls1 ls2) #t)
+        ( else (subsequence? ls1 (cdr ls2))))))
+        
 (define try-weak-cues
   (lambda (sentence new-context)
     '()))

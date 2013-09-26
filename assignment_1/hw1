@@ -30,7 +30,7 @@
 	       ((third base) (hes on third)) )
 	   ))
         
-        (define *weak-cues*
+(define *weak-cues*
   '( ( ((who) (whos) (who is))
        ((first-base)
            ((thats right) (exactly) (you got it)

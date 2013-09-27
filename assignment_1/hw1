@@ -41,7 +41,7 @@
 	    (right on) (now youve got it)))
        ((second-base third-base)
            ((no whos on first) (whos on first) (first base))) )
-     ( ((what) (whats) (what is))
+     ( ((what) (whats) (what is));(_whats the name)
        ((second-base)
 	   ((right) (sure) (you got it right)))
        ((first-base third-base)
@@ -56,7 +56,7 @@
  )
    ))
 
-(define try-strong-cues
+(define try-strong-cues;TODO shit is pritin out the entire sublist from strong cue
   (lambda (sentence)
     (define helper
       (lambda (list-of-pairs)

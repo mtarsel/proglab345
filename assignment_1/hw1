@@ -24,8 +24,8 @@
 
 (define *strong-cues*;prints this list 
   '( ( ((the names) (their names))
-       ((who's on first whats on second i dont know on third)
-        (whats on second whos on first i dont know on third)) )
+       ((who's on first whats on second i dont know on third);error
+        (whats on second whos on first i dont know on third)) );error
 
      ( ((suppose) (lets say) (assume))
        ((okay) (why not) (sure) (it could happen)) )
@@ -41,7 +41,7 @@
 	    (right on) (now youve got it)))
        ((second-base third-base)
            ((no whos on first) (whos on first) (first base))) )
-     ( ((what) (whats) (what is));(_whats the name)
+     ( ((what) (whats) (what is))
        ((second-base)
 	   ((right) (sure) (you got it right)))
        ((first-base third-base)
@@ -56,7 +56,7 @@
  )
    ))
 
-(define try-strong-cues;TODO shit is pritin out the entire sublist from strong cue
+(define try-strong-cues;TODO this is priting out the entire sublist from strong cue
   (lambda (sentence)
     (define helper
       (lambda (list-of-pairs)
@@ -70,27 +70,25 @@
 (define try-weak-cues
   (lambda (sentence context)
     (define helper
-      (lambda (context-list)
-        (cond ((null? context-list) '())
-              ((any-good-fragments? (cue-part (car context-list)) sentence) 
-               (cond ((equal? context (car (caadar context-list))) (select-any-from-list (car (cdadar context-list))))
-                     ((equal? context (caar (caddar context-list))) (select-any-from-list (cadr (caddar context-list))))
-                     ((equal? context (cdar (caddar context-list))) (select-any-from-list (cadr (caddar context-list))))
+      (lambda (context)
+        (cond ((null? context) '())
+              ((any-good-fragments? (cue-part (car context)) sentence) 
+               (cond ((equal? context (car (caadar context))) (select-any-from-list (car (cdadar context))))
+                     ((equal? context (caar (caddar context))) (select-any-from-list (cadr (caddar context))))
+                     ((equal? context (cdar (caddar context))) (select-any-from-list (cadr (caddar context))))
                      (else '())))
-              ((any-good-fragments? (caadr context-list) sentence) 
-               (cond ((equal? context (caar (cadadr context-list))) (select-any-from-list (cadr (cadadr context-list))))
-                     ((equal? context (caaar (cddadr context-list))) (select-any-from-list (cadar (cddadr context-list))))
-                     ((equal? context (cdaar (cddadr context-list))) (select-any-from-list (cadar (cddadr context-list))))
+              ((any-good-fragments? (caadr context) sentence) 
+               (cond ((equal? context (caar (cadadr context))) (select-any-from-list (cadr (cadadr context))))
+                     ((equal? context (caaar (cddadr context))) (select-any-from-list (cadar (cddadr context))))
+                     ((equal? context (cdaar (cddadr context))) (select-any-from-list (cadar (cddadr context))))
                      (else '())))
-              ((any-good-fragments? (caaddr context-list) sentence) 
-               (cond ((equal? context (caaar (cdaddr context-list))) (select-any-from-list (cadar (cdaddr context-list))))
-                     ((equal? context (caaadr (cdaddr context-list))) (select-any-from-list (cadadr (cdaddr context-list))))
-                     ((equal? context (car (cdaadr (cdaddr context-list)))) (select-any-from-list (cadadr (cdaddr context-list))))
+              ((any-good-fragments? (caaddr context) sentence) 
+               (cond ((equal? context (caaar (cdaddr context))) (select-any-from-list (cadar (cdaddr context))))
+                     ((equal? context (caaadr (cdaddr context))) (select-any-from-list (cadadr (cdaddr context))))
+                     ((equal? context (car (cdaadr (cdaddr context)))) (select-any-from-list (cadadr (cdaddr context))))
                      (else '())))
               (else '()))))
-     (helper *weak-cues*)))
-;also i changed in *weak-cues* where it says (whats the name) i changed it to (_whats the name)
-                    
+     (helper *weak-cues*)))                    
               
 
 (define cue-part

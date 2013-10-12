@@ -41,6 +41,6 @@
   (lambda (ls1 ls2)
     (accumulate cons ls2  (lambda(x) x) ls1)))
 
-(define union
+(define union1
   (lambda (set1 set2)
     (remove-duplicates(append set1 set2)))) 

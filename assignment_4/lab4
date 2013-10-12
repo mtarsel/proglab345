@@ -28,4 +28,19 @@
 
 (define set2?
  (lambda (ls)
-   (equal? (remove-duplicates ls) ls)))                  
+   (equal? (remove-duplicates ls) ls)))
+
+(define accumulate
+  (lambda (op base term ls)
+    (if (null? ls)
+        base
+        (op (term (car ls)) 
+            (accumulate op base term (cdr ls))))))
+
+(define append
+  (lambda (ls1 ls2)
+    (accumulate cons ls2  (lambda(x) x) ls1)))
+
+(define union
+  (lambda (set1 set2)
+    (remove-duplicates(append set1 set2)))) 

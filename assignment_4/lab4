@@ -11,13 +11,13 @@
   (lambda (element ls)
     (cond ((null? ls) #f)
           ((prefix? (list element) ls) #t)
-          (else (exist? (list element) (cdr ls))))))
+          (else (exist? element (cdr ls))))))
 
 (define remove-duplicates
   (lambda (ls)
    (cond ((null? ls) '())
          ((exist? (car ls) (cdr ls))
-                   (remove-duplicates (cdr ls)))
-          (else (cons (car ls) (remove-duplicates (cdr ls)))))))
+          (remove-duplicates (cdr ls)))
+         (else (cons (car ls) (remove-duplicates (cdr ls)))))))
                    
                    

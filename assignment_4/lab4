@@ -13,6 +13,7 @@
           ((prefix? (list element) ls) #t)
           (else(exist? (list element) (cdr ls))))))
 
-;(define remove-duplicates
-;  (lambda (ls)
- ;   (cond ((
+(define remove-duplicates
+  (lambda (ls)
+   (cond ((exist? (car ls) (cdr ls)
+                   (remove-duplicates( cdr ls)))))))

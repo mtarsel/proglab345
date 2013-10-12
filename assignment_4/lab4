@@ -43,4 +43,12 @@
 
 (define union1
   (lambda (set1 set2)
-    (remove-duplicates(append set1 set2)))) 
+    (remove-duplicates(append set1 set2))))
+
+;(define union2
+;  (lambda (set1 set2)
+;    (cons set1 set2
+
+(define union3
+  (lambda (set1 set2)
+    (remove-duplicates(accumulate cons set1 (lambda(x) x) set2))))

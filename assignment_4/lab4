@@ -45,9 +45,12 @@
   (lambda (set1 set2)
     (remove-duplicates(append set1 set2))))
 
-;(define union2
-;  (lambda (set1 set2)
-;    (cons set1 set2
+(define union2
+  (lambda (set1 set2)
+    (cond ((null? set1) set2)
+          ((null? set2) set1)
+          (else(remove-duplicates (append (list(car set2)) (union2 set1 (cdr set2))))))))
+        
 
 (define union3
   (lambda (set1 set2)

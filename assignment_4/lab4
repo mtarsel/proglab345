@@ -10,8 +10,8 @@
 (define exist?
   (lambda (element ls)
     (cond ((null? ls) #f)
-          ((prefix? (list element) ls) #t))
-    (else(exist? (list element) (cdr ls)))))
+          ((prefix? (list element) ls) #t)
+          (else(exist? (list element) (cdr ls))))))
 
 ;(define remove-duplicates
 ;  (lambda (ls)

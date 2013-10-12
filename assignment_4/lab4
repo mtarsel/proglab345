@@ -25,4 +25,7 @@
     (cond ((null? ls) #t)
           ((exist?  (car ls) (cdr ls) )#f)
           (else (set1? (cdr ls))))))
-                   
+
+(define set2?
+ (lambda (ls)
+   (equal? (remove-duplicates ls) ls)))                  

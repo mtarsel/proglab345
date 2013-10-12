@@ -19,5 +19,10 @@
          ((exist? (car ls) (cdr ls))
           (remove-duplicates (cdr ls)))
          (else (cons (car ls) (remove-duplicates (cdr ls)))))))
-                   
+
+(define set1?
+  (lambda (ls)
+    (cond ((null? ls) #t)
+          ((exist?  (car ls) (cdr ls) )#f)
+          (else (set1? (cdr ls))))))
                    

@@ -48,15 +48,17 @@
          ((exists? (car ls) (cdr ls)) (remove-duplicates (cdr ls)))
          (else (cons (car ls) (remove-duplicates (cdr ls)))))))
 
+;checks if list has distinct elements
 (define set1?
   (lambda (ls)
     (cond ((null? ls) #t)
-          ((exist?  (car ls) (cdr ls) )#f)
+          ((exist?  (car ls) (cdr ls)) #f)
           (else (set1? (cdr ls))))))
 
 (define set2?
  (lambda (ls)
    (equal? (remove-duplicates ls) ls)))
+;or (equal? ls (remove-duplicates ls))))
 
 (define accumulate
   (lambda (op base term ls)
@@ -69,9 +71,15 @@
   (lambda (ls1 ls2)
     (accumulate cons ls2  (lambda(x) x) ls1)))
 
+;example
+(define all-same?
+  (lambda (ls)
+    (cond ((null? ls) #t)
+          (else (equal? (remove-duplicates ls) (list (car ls)))))))
+
 (define union1
   (lambda (set1 set2)
-    (remove-duplicates(append set1 set2))))
+    (remove-duplicates (append set1 set2))))
 
 (define union2
   (lambda (set1 set2)
@@ -82,3 +90,18 @@
 (define union3
   (lambda (set1 set2)
     (remove-duplicates(accumulate cons set1 (lambda(x) x) set2))))
+
+(define union4
+  (lambda (set1 set2)
+    (cond ((null? set1) set2)
+          ((exists? (car set1) set2) (union1 (cdr set1) set2))
+          (else (cons (car set1) (union1 (cdr set1) set2))))))
+
+;DONT USE CONS TO COMBINE LIST, USE APPEND
+(define union5
+  (lambda (set1 set2)
+    (accumulate cons;wrong combiner. cons deals with an item and a list, we could get a list and a list
+                set2
+                (lambda (x) (if (exists? x set2) '() (list x)));x stands for every element in set1
+                set1)))
+    

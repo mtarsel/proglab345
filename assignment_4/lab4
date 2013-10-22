@@ -6,18 +6,46 @@
         ((null? ls2) #f)
         ((equal? (car ls1)(car ls2)) (prefix? (cdr ls1)(cdr ls2)))
                                      (else #f))))
-
+;both work
 (define exist?
   (lambda (element ls)
     (cond ((null? ls) #f)
           ((prefix? (list element) ls) #t)
           (else (exist? element (cdr ls))))))
 
+(define exists?
+  (lambda (element ls)
+    (cond ((null? ls) #f)
+          ((equal? element (car ls)) #t)
+          (else (exist? element (cdr ls))))))
+;example
+(define reverse
+  (lambda (ls)
+    (cond ((null? ls) '())
+          (else (append (reverse (cdr ls)) (list (car ls)))))))
+;example
+(define remove-duplicates2
+  (lambda (ls)
+    (reverse (remove-duplicates (reverse ls)))))
+
+;example with remove dup 3
+(define delete
+ (lambda (item ls)
+   (cond ((null? ls) '())
+         ((equal? item (car ls)) (delete item (cdr ls)))
+          (else (cons (car ls) (delete item (cdr ls)))))))
+
+;example
+(define remove-duplicates3
+  (lambda (ls)
+    (cond ((null? ls) '())
+          (else (cons (car ls) (remove-duplicates3 (delete (car ls) (cdr ls))))))))
+
+;#1 remove duplicates
 (define remove-duplicates
   (lambda (ls)
    (cond ((null? ls) '())
-         ((exist? (car ls) (cdr ls))
-          (remove-duplicates (cdr ls)))
+         ((exists? (car ls) (cdr ls)) (remove-duplicates (cdr ls)))
          (else (cons (car ls) (remove-duplicates (cdr ls)))))))
 
 (define set1?
@@ -50,7 +78,6 @@
     (cond ((null? set1) set2)
           ((null? set2) set1)
           (else(remove-duplicates (append (list(car set2)) (union2 set1 (cdr set2))))))))
-        
 
 (define union3
   (lambda (set1 set2)

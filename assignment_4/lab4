@@ -104,4 +104,22 @@
                 set2
                 (lambda (x) (if (exists? x set2) '() (list x)));x stands for every element in set1
                 set1)))
+
+(define subset?
+  (lambda (set1 set2)
+    (equal? (union1 set1 set2) set2)))
+
+(define subset2?
+  (lambda (set1 set2)
+    (cond ((null? set1) #t)
+          ((exists? (car set1) set2) (subset? (cdr set1) set2))
+          (else #f))))
+
+(define subset3?
+  (lambda (set1 set2)
+    (accumulate (lambda (a b) (and a b))
+                #t
+                (lambda (x) (exists? x set2))
+                set1)))
+  
     

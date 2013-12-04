@@ -2,7 +2,7 @@
 (require racket/class)
 
 (define frame (new frame%
-                   [label "Canvas"]
+                   [label "Bad Argile"]
                    [width 500]
                    [height 500]
                    ))
@@ -204,33 +204,74 @@
 
 (define animate-me
  (lambda ()
-   (define scn (scene (list (rectangle (point 0 400) (point 500 500) "brown" 3) ;ground
-                            ;(rectangle (point 0 0) (point 500 500) "blue" 1) ;sky
-                            ;(polygon (point 100 50) (point 150 100) (point 200 50) (point 150 0) "yellow" 5) ;sun
-                            ;sunrays
-                            ;(polygon (point 95 105) (point 200 0) "orange" 4) 
-                            ;(polygon (point 100 105) (point 95 0) "orange" 4)
+   (define scn (scene (list (rectangle (point 0 100) (point 500 400) "blue" 3) ;ground
+ 
+                            ;diagonal lines
+                            (polygon (point 0 50) (point 450 500) "orange" 5) 
+                            (polygon (point 0 150) (point 350 500) "orange" 5) 
+                            (polygon (point 0 250) (point 250 500) "orange" 5)
+                            (polygon (point 0 350) (point 150 500) "orange" 5)
+                            (polygon (point 0 450) (point 50 500) "orange" 5)
+                            (polygon (point 50 0) (point 500 450) "orange" 5)
+                            (polygon (point 150 0) (point 500 350) "orange" 5)
+                            (polygon (point 250 0) (point 500 250) "orange" 5)
+                            (polygon (point 350 0) (point 500 150) "orange" 5)
+                            (polygon (point 450 0) (point 500 50) "orange" 5)
                             
-                            ;top triangles
+                            (polygon (point 50 500) (point 500 50) "orange" 5)
+                            (polygon (point 150 500) (point 500 150) "orange" 5)
+                            (polygon (point 250 500) (point 500 250) "orange" 5)
+                            (polygon (point 350 500) (point 500 350) "orange" 5)
+                            (polygon (point 450 500) (point 500 450) "orange" 5)
+                            (polygon (point 0 450) (point 450 0) "orange" 5)
+                            (polygon (point 0 350) (point 350 0) "orange" 5)
+                            (polygon (point 0 250) (point 250 0) "orange" 5)
+                            (polygon (point 0 150) (point 150 0) "orange" 5)
+                            (polygon (point 0 50) (point 50 0) "orange" 5)
+                            
+                            
+                            ;top triangles grey
                             (polygon (point 0 0) (point 50 50) (point 100 0) (point 150 50) (point 200 0) (point 250 50) (point 300 0)
                                      (point 350 50) (point 400 0) (point 450 50) (point 500 0) 
                                      "gray" 2)
                             
-                            ;yellow diamonds
+                            ;bottom triangles red
+                            (polygon (point 0 500) (point 50 450) (point 100 500) (point 150 450) (point 200 500) (point 250 450) (point 300 500)
+                                     (point 350 450) (point 400 500) (point 450 450) (point 500 500)
+                                     "red" 2)
+                            
+                            ;green diamonds on bottom
+                             (polygon (point 0 400) (point 50 350) (point 100 400) (point 50 450) 
+                                      "green" 4)
+ 
+                              (polygon (point 100 400) (point 150 350) (point 200 400) (point 150 450) 
+                                      "green" 4)
+
+                              (polygon (point 200 400) (point 250 350) (point 300 400) (point 250 450) 
+                                      "green" 4)
+                              
+                              (polygon (point 300 400) (point 350 350) (point 400 400) (point 350 450) 
+                                      "green" 4)
+
+                              (polygon (point 400 400) (point 450 350) (point 500 400) (point 450 450) 
+                                      "green" 4)
+                            
+                            
+                            ;yellow diamonds on top
                              (polygon (point 0 100) (point 50 50) (point 100 100) (point 50 150) 
-                                      "yellow" 5)
+                                      "yellow" 4)
  
                               (polygon (point 100 100) (point 150 50) (point 200 100) (point 150 150)   
-                                      "yellow" 5)
+                                      "yellow" 4)
                               
                               (polygon (point 200 100) (point 250 50) (point 300 100) (point 250 150)   
-                                      "yellow" 5)
+                                      "yellow" 4)
                               
                                (polygon (point 300 100) (point 350 50) (point 400 100) (point 350 150)   
-                                      "yellow" 5)
+                                      "yellow" 4)
                                
                                 (polygon (point 400 100) (point 450 50) (point 500 100) (point 450 150)  
-                                      "yellow" 5)
+                                      "yellow" 4)
                                
                             ))) 
    (draw scn)))

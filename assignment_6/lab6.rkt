@@ -211,22 +211,27 @@
                             ;(polygon (point 95 105) (point 200 0) "orange" 4) 
                             ;(polygon (point 100 105) (point 95 0) "orange" 4)
                             
-                            ;mountains
+                            ;top triangles
                             (polygon (point 0 0) (point 50 50) (point 100 0) (point 150 50) (point 200 0) (point 250 50) (point 300 0)
                                      (point 350 50) (point 400 0) (point 450 50) (point 500 0) 
                                      "gray" 2)
                             
+                            ;yellow diamonds
                              (polygon (point 0 100) (point 50 50) (point 100 100) (point 50 150) 
-                                      ;(point 100 150) ;(point 100 250) ;(point 200 200) (point 50 200)  
                                       "yellow" 5)
  
-                              (polygon (point 100 100) (point 150 50) (point 200 100) (point 150 150) 
-                                      ;(point 100 150) ;(point 100 250) ;(point 200 200) (point 50 200)  
+                              (polygon (point 100 100) (point 150 50) (point 200 100) (point 150 150)   
                                       "yellow" 5)
                               
-                              (polygon (point 200 100) (point 250 50) (point 300 100) (point 250 150) 
-                                      ;(point 100 150) ;(point 100 250) ;(point 200 200) (point 50 200)  
+                              (polygon (point 200 100) (point 250 50) (point 300 100) (point 250 150)   
                                       "yellow" 5)
+                              
+                               (polygon (point 300 100) (point 350 50) (point 400 100) (point 350 150)   
+                                      "yellow" 5)
+                               
+                                (polygon (point 400 100) (point 450 50) (point 500 100) (point 450 150)  
+                                      "yellow" 5)
+                               
                             ))) 
    (draw scn)))
 

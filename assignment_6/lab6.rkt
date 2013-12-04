@@ -223,6 +223,10 @@
                               (polygon (point 100 100) (point 150 50) (point 200 100) (point 150 150) 
                                       ;(point 100 150) ;(point 100 250) ;(point 200 200) (point 50 200)  
                                       "yellow" 5)
+                              
+                              (polygon (point 200 100) (point 250 50) (point 300 100) (point 250 150) 
+                                      ;(point 100 150) ;(point 100 250) ;(point 200 200) (point 50 200)  
+                                      "yellow" 5)
                             ))) 
    (draw scn)))
 

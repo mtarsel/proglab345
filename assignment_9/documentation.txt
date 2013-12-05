@@ -1,4 +1,6 @@
-Features of this calculator:
+Simple Interpreter
+Mick Tarsel
+
 
 Input and Operators:
 =====

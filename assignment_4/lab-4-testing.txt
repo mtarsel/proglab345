@@ -1,0 +1,54 @@
+> (remove-duplicates '())
+'()
+> (remove-duplicates '(jazz blues rock))
+'(jazz blues rock)
+> (remove-duplicates '(jazz blues rock jazz))
+'(blues rock jazz)
+> (set1? '())
+#t
+> (set1? '(jazz rock blues jazz))
+#f
+> (set1? '(jazz rock blues))
+#t
+> (set2? '())
+#t
+> (set2? '(jazz rock blues jazz))
+#f
+> (set2? '(jazz rock blues))
+#t
+> (union1 '() '())
+'()
+> (union1 '() '(blues jazz))
+'(blues jazz)
+> (union1 '(jazz rock metal) '(blues jazz))
+'(rock metal blues jazz)
+> (union2 '() '())
+'()
+> (union2 '() '(blues jazz))
+'(blues jazz)
+> (union2 '(jazz rock metal) '(blues jazz))
+'(blues jazz rock metal)
+> (union3 '() '())
+'()
+> (union3 '() '(blues jazz))
+'(blues jazz)
+> (union3 '(jazz rock metal) '(blues jazz))
+'(blues jazz rock metal)
+> (subset? '() '())
+#t
+> (subset? '(blues jazz) '(jazz blues metal))
+#t
+> (subset? '(blues jazz punk) '(jazz rock blues metal))
+#f
+> (subset2? '() '())
+#t
+> (subset2? '(blues jazz) '(jazz blues metal))
+#t
+> (subset2? '(blues jazz punk) '(jazz rock blues metal))
+#f
+> (subset3? '() '())
+#t
+> (subset3? '(blues jazz) '(jazz blues metal))
+#t
+> (subset3? '(blues jazz punk) '(jazz rock blues metal))
+#f

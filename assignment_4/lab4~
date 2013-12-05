@@ -1,0 +1,56 @@
+#lang racket
+
+(define prefix?
+  (lambda (ls1 ls2)
+  (cond ((null? ls1) #t)
+        ((null? ls2) #f)
+        ((equal? (car ls1)(car ls2)) (prefix? (cdr ls1)(cdr ls2)))
+                                     (else #f))))
+
+(define exist?
+  (lambda (element ls)
+    (cond ((null? ls) #f)
+          ((prefix? (list element) ls) #t)
+          (else (exist? element (cdr ls))))))
+
+(define remove-duplicates
+  (lambda (ls)
+   (cond ((null? ls) '())
+         ((exist? (car ls) (cdr ls))
+          (remove-duplicates (cdr ls)))
+         (else (cons (car ls) (remove-duplicates (cdr ls)))))))
+
+(define set1?
+  (lambda (ls)
+    (cond ((null? ls) #t)
+          ((exist?  (car ls) (cdr ls) )#f)
+          (else (set1? (cdr ls))))))
+
+(define set2?
+ (lambda (ls)
+   (equal? (remove-duplicates ls) ls)))
+
+(define accumulate
+  (lambda (op base term ls)
+    (if (null? ls)
+        base
+        (op (term (car ls)) 
+            (accumulate op base term (cdr ls))))))
+
+(define append
+  (lambda (ls1 ls2)
+    (accumulate cons ls2  (lambda(x) x) ls1)))
+
+(define union1
+  (lambda (set1 set2)
+    (remove-duplicates(append set1 set2))))
+
+(define union2
+  (lambda (set1 set2)
+    (cond ((null? set1) set2)
+          ((null? set2) set1)
+          (else(remove-duplicates (append (list(car set2)) (union2 set1 (cdr set2))))))))
+
+(define union3
+  (lambda (set1 set2)
+    (remove-duplicates(accumulate cons set1 (lambda(x) x) set2))))

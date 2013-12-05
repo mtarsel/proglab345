@@ -1,0 +1,22 @@
+#lang racket
+
+(define prefix?
+  (lambda (ls1 ls2)
+  (cond ((null? ls1) #t)
+        ((null? ls2) #f)
+        ((equal? (car ls1)(car ls2)) (prefix? (cdr ls1)(cdr ls2)))
+                                     (else #f))))
+;both work
+(define exist?
+  (lambda (element ls)
+    (cond ((null? ls) #f)
+          ((prefix? (list element) ls) #t)
+          (else (exist? element (cdr ls))))))
+
+
+;#1 remove duplicates
+(define remove-duplicates
+  (lambda (ls)
+   (cond ((null? ls) '())
+         ((exist? (car ls) (cdr ls)) (remove-duplicates (cdr ls)))
+         (else (cons (car ls) (remove-duplicates (cdr ls)))))))

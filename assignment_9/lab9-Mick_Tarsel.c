@@ -68,7 +68,12 @@ int term()
         if (current_attribute == '^')
         {
             match(ARROWOP);
-            value *= factor();//TODO
+	    int count = factor();
+	    int temp = value;
+	    while(count > 1){
+		value = concat(value,temp);
+		count--;	
+	    }
         }
     }
     return value;

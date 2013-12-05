@@ -12,22 +12,12 @@
               (lambda (canvas dc)
                 (send dc set-background "black")
                 (send dc clear)
-                ;(drawharry dc)
                 )]))
 
 (define dc (send canvas get-dc))
 
 (send frame show #t)
 (sleep/yield 1)
-
-(define point
-  (lambda (x y [depth 1])
-    (new point% [x x] [y y] [depth depth])))
-
-(define draw-point
-  (lambda (point)
-    (send dc set-pen "white" 1 'solid)
-    (send dc draw-point (send point get-x) (send point get-y))))
 
 (define point%
   (class object%
@@ -50,23 +40,6 @@
         (send dc set-pen "white" 1 'solid)
         (send dc draw-point (get-x) (get-y))))
   ))
-
-(define draw
-  (lambda (object)
-    (send object draw)))
-
-(define type
-  (lambda (object)
-    (send object type?)))
-
-(define depth
-  (lambda (object)
-    (send object depth?)))
-    
-(define point?
-  (lambda (object)
-    (cond ((equal? (send object type?) 'point) #t)
-          (else #f))))
 
 (define rectangle%
   (class object%
@@ -101,22 +74,26 @@
                     (send dc draw-rectangle (get-x) (get-y) (get-width) (get-height))))))
   ))
 
-(define rectangle
-  (lambda (pointx pointy [color '()] [depth 1])
-    (new rectangle% [pointx pointx] [pointy pointy] [color color] [depth depth])))
+(define scene%
+  (class object%
+    (super-new)
+    (init-field objects)
 
-(define draw-rectangle
-  (lambda (rec)
-    (cond ((equal? (send rec get-color) '()) (send dc set-pen "white" 1 'solid) (send dc set-brush "white" 'transparent) 
-                                                       (send dc draw-rectangle (send rec get-x) (send rec get-y) (send rec get-width) (send rec get-height))) 
-          (else (send dc set-pen (send rec get-color) 1 'solid) (send dc set-brush (send rec get-color) 'solid)
-                (send dc draw-rectangle (send rec get-x) (send rec get-y) (send rec get-width) (send rec get-height))))
-    (send dc draw-rectangle (send rec get-x) (send rec get-y) (send rec get-width) (send rec get-height))))
+    (define/public type?
+      (lambda ()
+      'scene))
     
-(define rectangle?
-  (lambda (object)
-    (cond ((equal? (send object type?) 'rectangle) #t)
+    (define lessthandepth
+      (lambda (a b)
+        (cond ((< (depth a) (depth b)) #t)
           (else #f))))
+    
+    (define/public draw
+      (lambda ()
+        (for-each (lambda (arg) (send arg draw)) (sort objects lessthandepth))
+        ))
+    ))
+
 
 (define polygon%
   (class object%
@@ -149,6 +126,50 @@
     ))
   ))
 
+
+(define point
+  (lambda (x y [depth 1])
+    (new point% [x x] [y y] [depth depth])))
+
+(define draw-point
+  (lambda (point)
+    (send dc set-pen "white" 1 'solid)
+    (send dc draw-point (send point get-x) (send point get-y))))
+
+(define draw
+  (lambda (object)
+    (send object draw)))
+
+(define type
+  (lambda (object)
+    (send object type?)))
+
+(define depth
+  (lambda (object)
+    (send object depth?)))
+    
+(define point?
+  (lambda (object)
+    (cond ((equal? (send object type?) 'point) #t)
+          (else #f))))
+
+(define rectangle
+  (lambda (pointx pointy [color '()] [depth 1])
+    (new rectangle% [pointx pointx] [pointy pointy] [color color] [depth depth])))
+
+(define draw-rectangle
+  (lambda (rec)
+    (cond ((equal? (send rec get-color) '()) (send dc set-pen "white" 1 'solid) (send dc set-brush "white" 'transparent) 
+                                                       (send dc draw-rectangle (send rec get-x) (send rec get-y) (send rec get-width) (send rec get-height))) 
+          (else (send dc set-pen (send rec get-color) 1 'solid) (send dc set-brush (send rec get-color) 'solid)
+                (send dc draw-rectangle (send rec get-x) (send rec get-y) (send rec get-width) (send rec get-height))))
+    (send dc draw-rectangle (send rec get-x) (send rec get-y) (send rec get-width) (send rec get-height))))
+    
+(define rectangle?
+  (lambda (object)
+    (cond ((equal? (send object type?) 'rectangle) #t)
+          (else #f))))
+
 (define polygon
   (lambda vars
     (define color '())
@@ -177,26 +198,6 @@
     (cond ((equal? (send object type?) 'polygon) #t)
           (else #f))))
 
-(define scene%
-  (class object%
-    (super-new)
-    (init-field objects)
-
-    (define/public type?
-      (lambda ()
-      'scene))
-    
-    (define lessthandepth
-      (lambda (a b)
-        (cond ((< (depth a) (depth b)) #t)
-          (else #f))))
-    
-    (define/public draw
-      (lambda ()
-        (for-each (lambda (arg) (send arg draw)) (sort objects lessthandepth))
-        ))
-    ))
-
 (define scene
   (lambda (objs)
     
@@ -204,7 +205,7 @@
 
 (define animate-me
  (lambda ()
-   (define scn (scene (list (rectangle (point 0 100) (point 500 400) "blue" 3) ;ground
+   (define scn (scene (list (rectangle (point 0 100) (point 500 400) "blue" 3)
  
                             ;diagonal lines
                             (polygon (point 0 50) (point 450 500) "orange" 5) 

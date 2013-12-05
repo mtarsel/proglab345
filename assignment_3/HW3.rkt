@@ -1,9 +1,9 @@
 #lang racket/gui
 
 (define frame (new frame%
-                   [label "8 Puzzle"]
+                   [label "Puzzle"]
                    [width 310]
-                   [height 332]
+                   [height 310]
                    [style (list 'no-resize-border)]
                    ))
 
@@ -51,13 +51,11 @@
 (define board%
   (class object%
     (super-new)
-    ;(init-field pointx pointy [color '()] [depth 1])
     
     (define board-array
-      (list->vector '(0 1 2 3 4 5 6 7 8))
+      (list->vector '(1 2 3 4 5 6 7 8 0))
       )
-    
-    ;sounce number and destination position
+
     (define/public swap
       (lambda (src dst)
         (define x (vector-ref board-array dst))
@@ -119,14 +117,6 @@
               (else (displayln "cant go lower")))
         (redraw)))
     
-    ;  (define/public get-position
-    ;   (lambda (x y)
-    ;    (vector-ref board-array (+ x (* 3 (- y 1))))))
-    
-    ;   (define/public display
-    ;    (lambda ()
-    ;     board-array))
-    
     (define/public redraw
       (lambda ()
         (send dc clear)
@@ -149,39 +139,37 @@
     (define/public randomize
       (lambda (times)
         (cond ((> times 0)(define rand (random 4))
-                          ;(write (= rand 0)) (write (check-down))
                           (cond ((and (= rand 0) (check-up)) (move-up)) 
                                 ((and (= rand 1) (check-right)) (move-right))
                                 ((and (= rand 2) (check-down)) (move-down))
                                 ((and (= rand 3) (check-left)) (move-left))
                                 (else (randomize 1)))
-                          (sleep .1)
+                          ;(sleep 1)
                           (randomize (- times 1))))))
     
     (define/public solve
       (lambda ()
-        (cond ((equal? (vector->list board-array) '(0 1 2 3 4 5 6 7 8)) (print "SOLVED!"))
+        (cond ((equal? (vector->list board-array) '(1 2 3 4 5 6 7 8 0)) (print "SOLVED!"))
               (else
-               (define rand (random 4))
-               ;(write (= rand 0)) (write (check-down))
+               (define rand (random 4))        
                (cond ((and (= rand 0) (check-up)) (move-up)) 
                      ((and (= rand 1) (check-right)) (move-right))
                      ((and (= rand 2) (check-down)) (move-down))
                      ((and (= rand 3) (check-left)) (move-left))
                      (else (randomize 1)))
-               ;(sleep .05)
                (solve)))))
     
     ))
 
-(define boo (new board%))
-(send boo redraw)
+(define test (new board%))
+(send test redraw)
 
 (define play-me
   (lambda ()
      (displayln "Randomizing")
      (sleep 2)
-     (send boo randomize 100)
+     (send test randomize 200)
      (displayln "Solving")
      (sleep 2)
-     (send boo solve)))
+     (send test solve)
+    ))

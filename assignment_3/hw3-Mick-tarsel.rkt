@@ -65,19 +65,19 @@
         (vector-set! board-array y x)
         ))
     
-    ;check if the blank could be moved down
+    ;check if moved down
     (define/public check-down
       (lambda ()
         (cond((> (vector-member 0 board-array) 5) #f)
              (else #t))))
     
-    ;check if the blank could be moved up
+    ;check if moved up
     (define/public check-up
       (lambda ()
         (cond((< (vector-member 0 board-array) 3) #f)
              (else #t)))) 
     
-    ;check if the blank could be moved left
+    ;check if move left
     (define/public check-left
       (lambda ()
         (cond((= (vector-member 0 board-array) 0) #f)
@@ -85,13 +85,25 @@
              ((= (vector-member 0 board-array) 6) #f)
              (else #t))))
     
-    ;check if the blank can be moved right         
+    ;check if move right         
     (define/public check-right
       (lambda ()
         (cond((= (vector-member 0 board-array) 2) #f)
              ((= (vector-member 0 board-array) 5) #f)
              ((= (vector-member 0 board-array) 8) #f)
              (else #t))))
+    
+    (define/public move-down
+      (lambda ()
+        (cond ((check-down) (swap 0 (+ (vector-member 0 board-array) 3)))
+              (else (displayln "cant go lower")))
+        (redraw)))
+    
+    (define/public move-up
+      (lambda ()
+        (cond ((check-up) (swap 0 (- (vector-member 0 board-array) 3)))
+              (else (displayln "cant go higher")))
+        (redraw)))
     
     (define/public move-left
       (lambda ()
@@ -103,18 +115,6 @@
       (lambda ()
         (cond ((check-right) (swap 0 (+ (vector-member 0 board-array) 1)))
               (else (displayln "cant go right")))
-        (redraw)))
-    
-    (define/public move-up
-      (lambda ()
-        (cond ((check-up) (swap 0 (- (vector-member 0 board-array) 3)))
-              (else (displayln "cant go higher")))
-        (redraw)))
-    
-    (define/public move-down
-      (lambda ()
-        (cond ((check-down) (swap 0 (+ (vector-member 0 board-array) 3)))
-              (else (displayln "cant go lower")))
         (redraw)))
     
     (define/public redraw
@@ -166,10 +166,10 @@
 
 (define play-me
   (lambda ()
-     (displayln "Randomizing")
+     (displayln "Generating Random board")
      (sleep 2)
      (send test randomize 200)
-     (displayln "Solving")
+     (displayln "Solving...")
      (sleep 2)
      (send test solve)
     ))

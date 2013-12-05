@@ -1,0 +1,37 @@
+Features of this calculator:
+
+Input and Operators:
+=====
+
+[NUM1] ^ [NUM2] The ^ operator will with repeat NUM1 NUM2 times.
+
+[NUM1] . [NUM2] The . operator will concatenate the NUM1 and NUM2.
+
+([NUM1].[NUM2])^[NUM3] Parenthesis will execute with order of operations
+
+Does not support any other operators at this time
+
+
+
+
+Features
+=====
+
+Allows for multiple operators to perform at once. Will check for order of
+operations.
+
+
+
+Limitations
+=====
+
+This version of the program does not allow for the interpreter to give an answer
+for an input length of greater than 11. I think this is because of the limit of
+long ints because when using int, the limitation was only 8 digits.
+
+
+
+Testing
+=====
+
+See attached testing.txt 

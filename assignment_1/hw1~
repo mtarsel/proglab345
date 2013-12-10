@@ -1,5 +1,9 @@
 #lang racket
 
+(define who
+  (lambda ()
+    (whos-on-first-loop '())))
+
 (define whos-on-first-loop 
 	  (lambda (old-context)
 	    (let ((costellos-line (read)));read input from keyboard. assigns input to costellos-line
@@ -18,27 +22,102 @@
 	                      (writeln (hedge));hedge=stall
 	                      (whos-on-first-loop new-context)))))))))
 
-	(define *strong-cues*
-	  '( ( ((the names) (their names))
-	       ((who's on first whats on second i dont know on third)
- 	        (whats on second whos on first i dont know on third)) )
+(define *strong-cues*;prints this list 
+  '( ( ((the names) (their names))
+       ((who's on first whats on second i dont know on third);error
+        (whats on second whos on first i dont know on third)) );error
 
-	     ( ((suppose) (lets say) (assume))
-	       ((okay) (why not) (sure) (it could happen)) )
+     ( ((suppose) (lets say) (assume))
+       ((okay) (why not) (sure) (it could happen)) )
 
-	     ( ((i dont know))
-	       ((third base) (hes on third)) )
-	   ))
+     ( ((i dont know))
+       ((third base) (hes on third)) )
+   ))
+        
+(define *weak-cues*
+  '( ( ((who) (whos) (who is))
+       ((first-base)
+           ((thats right) (exactly) (you got it)
+	    (right on) (now youve got it)))
+       ((second-base third-base)
+           ((no whos on first) (whos on first) (first base))) )
+     ( ((what) (whats) (what is))
+       ((second-base)
+	   ((right) (sure) (you got it right)))
+       ((first-base third-base)
+	   ((hes on second) (i told you whats on second)))
+        )
+     ( ((whats the name))
+             ((second-base)
+	((now youre talking) (you got it)))
+       ((first-base third-base)
+	   ((no whats the name of the guy on second)
+	    (whats the name of the second baseman)))
+ )
+   ))
 
-
-
-(define try-strong-cues
+(define try-strong-cues;TODO this is priting out the entire sublist from strong cue
   (lambda (sentence)
-    '()))
+    (define helper
+      (lambda (list-of-pairs)
+        (cond ((null? list-of-pairs) '())
+              ((any-good-fragments? (cue-part list-of-pairs) sentence))
+              (select-any-from-list (response-part (car list-of-pairs)))
+              (else (helper (cdr list-of-pairs))))))
+    (helper *strong-cues*)))
+
 
 (define try-weak-cues
-  (lambda (sentence)
-    '()))
+  (lambda (sentence context)
+    (define helper
+      (lambda (context)
+        (cond ((null? context) '())
+              ((any-good-fragments? (cue-part (car context)) sentence) 
+               (cond ((equal? context (car (caadar context))) (select-any-from-list (car (cdadar context))))
+                     ((equal? context (caar (caddar context))) (select-any-from-list (cadr (caddar context))))
+                     ((equal? context (cdar (caddar context))) (select-any-from-list (cadr (caddar context))))
+                     (else '())))
+              ((any-good-fragments? (caadr context) sentence) 
+               (cond ((equal? context (caar (cadadr context))) (select-any-from-list (cadr (cadadr context))))
+                     ((equal? context (caaar (cddadr context))) (select-any-from-list (cadar (cddadr context))))
+                     ((equal? context (cdaar (cddadr context))) (select-any-from-list (cadar (cddadr context))))
+                     (else '())))
+              ((any-good-fragments? (caaddr context) sentence) 
+               (cond ((equal? context (caaar (cdaddr context))) (select-any-from-list (cadar (cdaddr context))))
+                     ((equal? context (caaadr (cdaddr context))) (select-any-from-list (cadadr (cdaddr context))))
+                     ((equal? context (car (cdaadr (cdaddr context)))) (select-any-from-list (cadadr (cdaddr context))))
+                     (else '())))
+              (else '()))))
+     (helper *weak-cues*)))                    
+              
+
+(define cue-part
+  (lambda (pair)
+    (car pair)))
+
+(define response-part
+  (lambda (pair)
+    (cadr pair)))
+
+(define any-good-fragments?
+  (lambda (list-of-cues sentence)
+    (cond ((null? list-of-cues) #f)
+          ((subsequence? (car list-of-cues) sentence) #t)
+          (else (any-good-fragments? (cdr list-of-cues) sentence)))))
+
+(define prefix?
+  (lambda (ls1 ls2)
+  (cond ((null? ls1) #t)
+        ((null? ls2) #f)
+        ((equal? (car ls1)(car ls2)) (prefix? (cdr ls1)(cdr ls2)))
+                                     (else #f))))
+
+(define subsequence?
+  (lambda (ls1 ls2)
+  (cond ((null? ls1) #t)
+        ((null? ls2) #f)
+        ((prefix? ls1 ls2) #t)
+        ( else (subsequence? ls1 (cdr ls2))))))
 
 (define wants-to-end?
   (lambda (sentence)
@@ -64,14 +143,25 @@
   (lambda ()
     (select-any-from-list *hedges*)))
 
-	(define *context-words*
-	  `( ( ((first)) first-base )
-	     ( ((second)) second-base )
-	     ( ((third)) third-base )))
+(define *context-words*
+  `( ( ((first)) first-base )
+     ( ((second)) second-base )
+     ( ((third)) third-base )))
 
 (define get-context
-  (lambda (sentence old-context)
-    '()))
+  (lambda (sentence context)
+    (define helper
+      (lambda (list-of-pairs)
+        (cond ((null? list-of-pairs) context)
+              ((any-good-fragments? (cue-part(car list-of-pairs)) sentence)
+               (response-part (car list-of-pairs)))
+              (else (helper(cdr list-of-pairs))))))
+    (helper *context-words*)))
+        
+
+(define context-part
+  (lambda (pair)
+    (cadr pair)))
 	
 (define writeln
   (lambda (sentence)

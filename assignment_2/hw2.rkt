@@ -1,4 +1,5 @@
 #lang racket
+(require racket/stream)
 
 (define file->stream 
   (lambda (filename)
@@ -114,8 +115,12 @@
         ((remove-loop
           (lambda (stream)
             (cond ((stream-empty? stream) stream)
-                  ((and (eq? #\space (stream-first stream)) (eq? #\newline (stream-first(stream-rest stream)))) (remove-loop (stream-rest stream)))
-                  (else (stream-cons (stream-first stream) (remove-loop (stream-rest stream))))))))
+                  ((stream-empty? (stream-rest stream)) stream)
+                  (else
+                   (let ((ch (stream-first stream)))
+                     (cond ((and (eq? ch (stream-first(stream-rest stream))) (eq? ch #\space))
+                            (remove-loop (stream-rest stream)))
+                           (else (stream-cons ch (remove-loop (stream-rest stream)))))))))))
       (remove-loop stream))))
 
 (define remove-newlines

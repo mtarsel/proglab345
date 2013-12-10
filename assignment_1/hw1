@@ -56,15 +56,15 @@
  )
    ))
 
-(define try-strong-cues;TODO this is priting out the entire sublist from strong cue
+(define try-strong-cues
   (lambda (sentence)
     (define helper
       (lambda (list-of-pairs)
-        (cond ((null? list-of-pairs) '())
-              ((any-good-fragments? (cue-part list-of-pairs) sentence))
-              (select-any-from-list (response-part (car list-of-pairs)))
-              (else (helper (cdr list-of-pairs))))))
-    (helper *strong-cues*)))
+        (cond((null? list-of-pairs)'())
+             ((any-good-fragments? (cue-part (car list-of-pairs) ) sentence)
+              (select-any-from-list (response-part(car list-of-pairs))))
+             (else(helper (cdr list-of-pairs))))))
+      (helper *strong-cues*)))
 
 
 (define try-weak-cues

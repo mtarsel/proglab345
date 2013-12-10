@@ -1,6 +1,4 @@
-% Sean Franklin - 0177990
 % HW 4
-
 try(S,X,Comment):-
     write('Try:'),
     write(S),write('|- '),write(X),
@@ -11,10 +9,6 @@ imply(A,B):- not(A).
 and(A,B):- A,B.
 or(A,B):- A.
 or(A,B):- B.
-
-% deduce(+Premises,+Term)
-% decides if there is a sequence of moves in Natural Deduction from the set of
-% Premises which yeild the target Term.
 
 % Copy Rule : ! |- A
 deduce(S,X):- member(X,S).
@@ -57,13 +51,6 @@ deduce(S,false) :- member(A,S), member(not(A),S).
 
 % Double-Negation Elimination
 deduce(S,X) :- member(not(not(X)),S).
-
-% Conjunctive Introduction
-%conjunctive_intorduction(S,and(X,UY),N):- member(X,S),member(Y,S).
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%% Test Section %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 test_and_commutativity :- 
 	deduce([and(a,b)], and(b,a)).
